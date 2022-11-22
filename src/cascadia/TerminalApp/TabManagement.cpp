@@ -285,7 +285,6 @@ namespace winrt::TerminalApp::implementation
     // - Handle changes to the tab width set by the user
     void TerminalPage::_UpdateTabWidthMode()
     {
-        _tabView.TabWidthMode(_settings.GlobalSettings().TabWidthMode());
     }
 
     // Method Description:
@@ -662,13 +661,6 @@ namespace winrt::TerminalApp::implementation
     // - the index of the currently focused tab if there is one, else nullopt
     std::optional<uint32_t> TerminalPage::_GetFocusedTabIndex() const noexcept
     {
-        // GH#1117: This is a workaround because _tabView.SelectedIndex()
-        //          sometimes return incorrect result after removing some tabs
-        uint32_t focusedIndex;
-        if (_tabView.TabItems().IndexOf(_tabView.SelectedItem(), focusedIndex))
-        {
-            return focusedIndex;
-        }
         return std::nullopt;
     }
 
